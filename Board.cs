@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace labirynt
 {
@@ -14,6 +15,12 @@ namespace labirynt
         {
             get { return map; }
             set { }
+        }
+        private enum Elements
+        {
+            Empty = 'o',
+            Wall = 'x',
+            Path = '='
         }
         private string name;
         public string Name
@@ -114,12 +121,6 @@ namespace labirynt
         {
             int x, y;
             char symbol;
-            enum Elements 
-            {
-                Empty = 'o',
-                Wall = 'X',
-                Path = '='
-            }
 
             for (; ; )
             {
@@ -159,12 +160,13 @@ namespace labirynt
             {
                 Console.Write("Podaj symbol (o - puste, X - sciana, = - scierzka):");
                 symbol = Console.ReadKey().KeyChar;
-                Elements element = (Elements)symbol;
-                if (!Enum.IsDefined(typeof(Elements), element))
+                if (!Enum.IsDefined(typeof(Elements), (Elements)symbol))
                 {
+                    Console.WriteLine();
                     Console.WriteLine("Znak nie pasuje do żadnej z wartości (o, X, =)...");
                     continue;
                 }
+                Console.WriteLine();
                 break;
             }
 
