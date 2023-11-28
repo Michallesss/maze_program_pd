@@ -114,6 +114,12 @@ namespace labirynt
         {
             int x, y;
             char symbol;
+            enum Elements 
+            {
+                Empty = 'o',
+                Wall = 'X',
+                Path = '='
+            }
 
             for (; ; )
             {
@@ -151,11 +157,12 @@ namespace labirynt
 
             for (; ; )
             {
-                Console.Write("Podaj symbol:");
-                try { symbol = Convert.ToChar(Console.ReadLine()); }
-                catch
+                Console.Write("Podaj symbol (o - puste, X - sciana, = - scierzka):");
+                symbol = Console.ReadKey().KeyChar;
+                Elements element = (Elements)symbol;
+                if (!Enum.IsDefined(typeof(Elements), element))
                 {
-                    Console.Write("Podano nieprawidłowy symbol...");
+                    Console.WriteLine("Znak nie pasuje do żadnej z wartości (o, X, =)...");
                     continue;
                 }
                 break;
